@@ -4,8 +4,5 @@
 const Vrouter = require("express").Router();
 const Vcontroller = require("../controllers/View_controller");
 
-// View
-Vrouter.get("/", Vcontroller.mainview);
-
 
 module.exports = Vrouter;

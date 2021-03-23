@@ -4,6 +4,9 @@
 const express = require("express");
 const server = express();
 
+// 쿠키 사용
+const cookieParser = require('cookie-parser')
+
 const db = require("./db");
 
 const http = require('http').createServer(server);
@@ -14,6 +17,9 @@ server.use(express.urlencoded({ extended : true }));
 
 // application/json 형식 분석하기 위해 선언
 server.use(express.json());
+
+// cookie-parser 사용
+server.use(cookieParser());
 
 const Vroutes = require("./routes/View_index");
 const Aroutes = require("./routes/Api_index");

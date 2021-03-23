@@ -6,12 +6,15 @@
 // Model 활용 CRUD 구성
 // https://poiemaweb.com/mongoose
 
-
 const { User } = require("../models/User");
 
 
+exports.mainview = function (req, res) {
+    res.send("Hello World!");
+}
+
 // 새로운 정보 입력
-exports.postNewuser = (req, res) => {
+exports.register = (req, res) => {
     // 회원가입
     let user = new User(req.body);
 
@@ -22,18 +25,22 @@ exports.postNewuser = (req, res) => {
     });
 }
 
-// 모든 정보 요청
-exports.getAllusers = (req, res) => {
-}
+exports.login = (req, res) => {
+    // 요청된 이메일 데이터베이스 검색
+    User.findOne({ email : req.body.email }, (err, user) => {
+        if(!user) return res.json({ loginSuccess : false, message : "해당 이메일의 유저가 없습니다. "});
 
-// 특정 id 정보 요청
-exports.getSelectluser = (req, res) => {
-}
-
-// 특정 id 정보 갱신
-exports.putSelectuser = (req, res) => {
-}
-
-// 특정 id 정보 삭제
-exports.deleteSelectuser = (req, res) => {
+        // 요청된 이메일이 데이터베이스에 존재 시 비밀번호 확인
+        user.comparePassword(req.body.password, (err, isMatch) => {
+            if(!isMatch) return res.json({ loginSuccess : false, message : "비밀번호가 틀렸습니다." });
+            
+            // 로그인 성공 시 Token 생성
+            user.generateToken((err, user) => {
+                if(err) return res.status(400).send(err);
+                
+                // token을 저장 (쿠키, 로컬스토리지, ...) 가능, 쿠키에 저장
+                res.cookie("x_auth", user.token).status(200).json({ loginSuccess : true, userId : user._id});
+            });
+        });
+    });
 }
