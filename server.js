@@ -9,7 +9,10 @@ const db = require("./db");
 const http = require('http').createServer(server);
 const port = 8000;
 
+// application/x-www-form-urlencoded 형식 분석하기 위해 선언
 server.use(express.urlencoded({ extended : true }));
+
+// application/json 형식 분석하기 위해 선언
 server.use(express.json());
 
 const Vroutes = require("./routes/View_index");

@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,vscode,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,vscode,node
 
+# 개발 데이터베이스 환경 파일
+# dev.js
+
 ### macOS ###
 # General
 .DS_Store
