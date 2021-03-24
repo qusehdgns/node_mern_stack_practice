@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser')
 const db = require("./db");
 
 const http = require('http').createServer(server);
-const port = 8000;
+const port = 5000;
 
 // application/x-www-form-urlencoded 형식 분석하기 위해 선언
 server.use(express.urlencoded({ extended : true }));

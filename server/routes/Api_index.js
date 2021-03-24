@@ -10,6 +10,9 @@ const { auth } = require("../middleware/auth");
 // View
 Arouter.get("/", Acontroller.mainview);
 
+// react Connect Test
+Arouter.get('/api/hello', Acontroller.hello);
+
 // 회원가입
 Arouter.post("/api/users/register", Acontroller.usersregister);
 

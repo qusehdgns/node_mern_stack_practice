@@ -13,6 +13,10 @@ exports.mainview = function (req, res) {
     res.send("Hello World!");
 }
 
+exports.hello = (req, res) => {
+    res.send("Hello World!~");
+}
+
 // 새로운 정보 입력
 exports.usersregister = (req, res) => {
     // 회원가입
