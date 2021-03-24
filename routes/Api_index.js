@@ -17,6 +17,9 @@ Arouter.post("/api/users/register", Acontroller.usersregister);
 Arouter.post("/api/users/login", Acontroller.userslogin);
 
 // Auth 기능
-Arouter.post("/api/users/auth", auth, Acontroller.usersauth)
+Arouter.post("/api/users/auth", auth, Acontroller.usersauth);
+
+// logout
+Arouter.get("/api/users/logout", auth, Acontroller.userslogout);
 
 module.exports = Arouter;
