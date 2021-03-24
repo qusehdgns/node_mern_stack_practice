@@ -11,7 +11,7 @@ const saltRounds = 10
 // jsonwebtoken 사용
 const jwt = require('jsonwebtoken');
 
-
+const tokenKey = 'secretToken';
 
 const userSchema = mongoose.Schema({
     name: {
@@ -84,7 +84,7 @@ userSchema.methods.generateToken = function(cb) {
     var user = this;
     // jsonwebtoken 이용해서 token 생성
     // 뒷부분은 해독과 토큰화 키값 같은 것 임의의 값 사용 가능
-    var token = jwt.sign(user._id.toHexString(), 'secretToken')
+    var token = jwt.sign(user._id.toHexString(), tokenKey)
 
     user.token = token;
     user.save(function(err, user) {
@@ -93,6 +93,19 @@ userSchema.methods.generateToken = function(cb) {
     })
 }
 
+userSchema.statics.findByToken = function (token, cb){
+    var user = this;
+
+    // Token decode
+    jwt.verify(token, tokenKey, function(err, decoded) {
+        // 유저 아이디를 이용하여 유저 탐색
+        // 클라이언트 토큰과 DB 유저 토큰 비교를 위해 사용
+        user.findOne({ "_id" : decoded, "token" : token }, function(err, user) {
+            if (err) return cb(err);
+            cb(null, user);
+        });
+    })
+}
 
 const User = mongoose.model('User', userSchema);
 

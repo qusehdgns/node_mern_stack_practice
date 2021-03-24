@@ -3,6 +3,7 @@
 
 const Arouter = require("express").Router();
 const Acontroller = require("../controllers/Api_controller");
+const { auth } = require("../middleware/auth");
 
 // Api
 
@@ -10,10 +11,12 @@ const Acontroller = require("../controllers/Api_controller");
 Arouter.get("/", Acontroller.mainview);
 
 // 회원가입
-Arouter.post("/register", Acontroller.register);
+Arouter.post("/api/users/register", Acontroller.usersregister);
 
 // login
-Arouter.post("/login", Acontroller.login);
+Arouter.post("/api/users/login", Acontroller.userslogin);
 
+// Auth 기능
+Arouter.post("/api/users/auth", auth, Acontroller.usersauth)
 
 module.exports = Arouter;

@@ -14,7 +14,7 @@ exports.mainview = function (req, res) {
 }
 
 // 새로운 정보 입력
-exports.register = (req, res) => {
+exports.usersregister = (req, res) => {
     // 회원가입
     let user = new User(req.body);
 
@@ -25,7 +25,7 @@ exports.register = (req, res) => {
     });
 }
 
-exports.login = (req, res) => {
+exports.userslogin = (req, res) => {
     // 요청된 이메일 데이터베이스 검색
     User.findOne({ email : req.body.email }, (err, user) => {
         if(!user) return res.json({ loginSuccess : false, message : "해당 이메일의 유저가 없습니다. "});
@@ -42,5 +42,20 @@ exports.login = (req, res) => {
                 res.cookie("x_auth", user.token).status(200).json({ loginSuccess : true, userId : user._id});
             });
         });
+    });
+}
+
+// role 0 -> 일반 유저  role !0 -> 어드민
+exports.usersauth = (req, res) => {
+    // auth 미들웨어 통과 성공 시 수행, 유저에게 권한이 있음
+    res.status(200).json({
+        _id : req.user._id,
+        isAdmin : req.user.role === 0 ? false : true,
+        isAuth : true,
+        email : req.user.email,
+        name : req.user.name,
+        lastname : req.user.lastname,
+        role : req.user.role,
+        image : req.user.image
     });
 }
