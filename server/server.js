@@ -21,14 +21,12 @@ server.use(express.json());
 // cookie-parser 사용
 server.use(cookieParser());
 
-const Vroutes = require("./routes/View_index");
-const Aroutes = require("./routes/Api_index");
+const routes = require("./routes/index");
 
 // views 경로 정적으로 만듬
 server.use(express.static(__dirname + "/views"));
 
-server.use(Vroutes);
-server.use(Aroutes);
+server.use(routes);
 
 
 http.listen(port, () => {
