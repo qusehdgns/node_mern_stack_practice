@@ -23,11 +23,7 @@ server.use(cookieParser());
 
 const routes = require("./routes/index");
 
-// views 경로 정적으로 만듬
-server.use(express.static(__dirname + "/views"));
-
 server.use(routes);
-
 
 http.listen(port, () => {
     console.log(`localhost:${port} 실행...`)
