@@ -20,7 +20,7 @@ router.post("/api/users/register", controller.usersregister);
 router.post("/api/users/login", controller.userslogin);
 
 // Auth 기능
-router.post("/api/users/auth", auth, controller.usersauth);
+router.get("/api/users/auth", auth, controller.usersauth);
 
 // logout
 router.get("/api/users/logout", auth, controller.userslogout);
