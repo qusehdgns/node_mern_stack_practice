@@ -29,7 +29,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                     if(adminRoute && !res.payload.isAdmin) {
                         props.history.push('/');
                     } else {
-                        if(!option){
+                        if(option === false){
                             props.history.push('/')
                         }
                     }
