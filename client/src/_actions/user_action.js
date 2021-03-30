@@ -2,11 +2,13 @@ import Axios from 'axios';
 import {
     LOGIN_USER,
     REGISTER_USER,
-    AUTH_USER
+    AUTH_USER,
+    LOGOUT_USER
 } from './types';
+import { USER_SERVER } from '../components/Config';
 
 export function loginUser(dataTosubmit) {
-    const req = Axios.post('/api/users/login', dataTosubmit)
+    const req = Axios.post(`${USER_SERVER}/login`, dataTosubmit)
         .then(res => res.data );
 
         return {
@@ -16,7 +18,7 @@ export function loginUser(dataTosubmit) {
 }
 
 export function registerUser(dataTosubmit){
-    const req = Axios.post('/api/users/register', dataTosubmit)
+    const req = Axios.post(`${USER_SERVER}/register`, dataTosubmit)
         .then(res => res.data );
 
         return {
@@ -26,11 +28,21 @@ export function registerUser(dataTosubmit){
 }
 
 export function auth(){
-    const req = Axios.get('/api/users/auth')
+    const req = Axios.get(`${USER_SERVER}/auth`)
         .then(res => res.data );
 
         return {
             type: AUTH_USER,
             payload: req
         }
+}
+
+export function logoutUser(){
+    const req = Axios.get(`${USER_SERVER}/logout`)
+    .then(res => res.data);
+
+    return {
+        type: LOGOUT_USER,
+        payload: req
+    }
 }
